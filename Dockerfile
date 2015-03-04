@@ -17,11 +17,11 @@ RUN crontab /tmp/elasticsearch.crontab
 
 # Install monit
 RUN apt-get -y install monit
-ADD monitrc /etc/monit/conf.d/elasticsearch
+ADD elasticsearch.monit.conf /etc/monit/conf.d/elasticsearch.monit.conf
 
 # Expose ports
 EXPOSE 9200 9300
 
 # Run supervisor
 WORKDIR /tmp
-CMD ["/usr/bin/monit", "-I"]
+CMD ["/usr/bin/monit", "-d 10", "-I"]
