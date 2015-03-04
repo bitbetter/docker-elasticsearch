@@ -22,6 +22,9 @@ ADD elasticsearch.monit.conf /etc/monit/conf.d/elasticsearch.monit.conf
 # Expose ports
 EXPOSE 9200 9300
 
+# Make elasticsearch data folder mountable
+VOLUME ["/var/lib/elasticsearch"]
+
 # Run supervisor
 WORKDIR /tmp
 CMD ["/usr/bin/monit", "-d 10", "-I"]
