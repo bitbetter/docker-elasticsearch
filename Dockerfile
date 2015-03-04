@@ -15,13 +15,13 @@ RUN pip install elasticsearch-curator
 ADD elasticsearch.crontab /tmp/elasticsearch.crontab
 RUN crontab /tmp/elasticsearch.crontab
 
-# Install supervisor
-RUN apt-get -y install supervisor
-ADD supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+# Install monit
+RUN apt-get -y install monit
+ADD monitrc /etc/monit/conf.d/elasticsearch
 
 # Expose ports
 EXPOSE 9200 9300
 
 # Run supervisor
 WORKDIR /tmp
-CMD ["/usr/bin/supervisord", "--configuration=/etc/supervisor/conf.d/supervisord.conf"]
+CMD ["/usr/bin/monit", "-I"]
